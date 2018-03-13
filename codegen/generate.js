@@ -8,11 +8,12 @@ const CodeGen = require('swagger-js-codegen').CodeGen;
 
 const pathToApiDir = path.resolve(__dirname, '..', 'src');
 const templatePath = path.resolve(__dirname, 'templates');
+const filename = 'API.js';
 fetch(`${process.env.REACT_APP_AUTH_BASE_URL}/swagger`)
   .then(response => response.json())
   .then(swagger => {
     const source = CodeGen.getCustomCode({
-      className: 'AuthApi',
+      className: filename,
       swagger,
       beautify: false,
       lint: false,
@@ -35,7 +36,7 @@ fetch(`${process.env.REACT_APP_AUTH_BASE_URL}/swagger`)
       throw Error(`Path ${pathToApiDir} does not exists!`);
     }
     fs.writeFileSync(
-      path.resolve(pathToApiDir, 'AuthApi.js'),
+      path.resolve(pathToApiDir, filename),
       prettier.format(
         source,
         prettier.resolveConfig.sync(path.resolve(__dirname, '..')),
