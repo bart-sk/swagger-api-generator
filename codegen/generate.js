@@ -13,7 +13,7 @@ fetch(`${process.env.REACT_APP_AUTH_BASE_URL}/swagger`)
   .then(response => response.json())
   .then(swagger => {
     const source = CodeGen.getCustomCode({
-      className: filename,
+      className: filename.replace('.js',''),
       swagger,
       beautify: false,
       lint: false,
